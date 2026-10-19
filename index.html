@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Örnek Kafe · Menü</title>
+<meta name="theme-color" content="#a0522d">
+<style>
+:root{--bg:#faf6f0;--card:#fff;--ink:#2b211b;--muted:#7a6a5e;--line:#ece3d8;--accent:#a0522d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Noto Sans Arabic",sans-serif}
+.demo{background:#2b211b;color:#f3e9dc;font-size:12.5px;text-align:center;padding:7px 16px}
+header{padding:28px 16px 18px;text-align:center}
+h1{margin:0;font:700 30px/1.15 Georgia,"Times New Roman",serif;letter-spacing:.3px}
+.sub{color:var(--muted);font-size:14px;margin-top:6px}
+.langs{display:inline-flex;gap:4px;margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.langs button{border:0;background:none;font:inherit;font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;color:var(--muted);cursor:pointer}
+.langs button.on{background:var(--accent);color:#fff}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0 0}
+.search{display:block;width:calc(100% - 32px);max-width:640px;margin:0 auto 10px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);font:inherit;color:inherit}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none;max-width:672px;margin:0 auto}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;text-decoration:none;color:var(--ink);font-size:14px;font-weight:600;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.chips a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+main{max-width:672px;margin:0 auto;padding:6px 16px 30px}
+section{scroll-margin-top:118px}
+h2{font:700 21px/1.2 Georgia,"Times New Roman",serif;margin:26px 0 10px}
+.item{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:9px}
+.item h3{margin:0;font-size:16px;font-weight:650}
+.item p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.price{flex:none;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:999px;margin-inline-start:6px;vertical-align:2px;background:#f3e3cf;color:#8a4b16}
+.tag.local{background:#dfeedd;color:#2f6b2a}
+.none{text-align:center;color:var(--muted);padding:30px 0;display:none}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 16px 34px}
+footer a{color:var(--accent);font-weight:600}
+[dir=rtl] h1,[dir=rtl] h2{font-family:inherit}
+</style>
+</head>
+<body>
+<div class="demo">Tasarım önerisidir — örnek bir menüdür, ürün ve fiyatlar temsilidir.</div>
+<header>
+  <h1>Örnek Kafe</h1>
+  <div class="sub" id="tagline"></div>
+  <div class="langs" id="langs"></div>
+</header>
+<div class="bar">
+  <input class="search" id="q" type="search" autocomplete="off">
+  <nav class="chips" id="chips"></nav>
+</div>
+<main id="menu"></main>
+<div class="none" id="none"></div>
+<footer id="foot"></footer>
+<script>
+const M = {"slug": "ornek-kafe", "repo": "qr-menu-ornek", "name": "Örnek Kafe", "tagline": {"tr": "Meydan, Trabzon", "en": "Meydan, Trabzon", "ar": "ميدان، طرابزون"}, "demo": true, "currency": "₺", "phone": "", "instagram": "", "hours": {"tr": "Her gün 08:00 – 23:00", "en": "Daily 08:00 – 23:00", "ar": "يومياً 08:00 – 23:00"}, "langs": ["tr", "en", "ar"], "categories": [{"name": {"tr": "Kahvaltı", "en": "Breakfast", "ar": "الفطور"}, "items": [{"name": {"tr": "Serpme Kahvaltı (2 kişilik)", "en": "Turkish Breakfast Spread (for 2)", "ar": "فطور تركي مشكّل (لشخصين)"}, "desc": {"tr": "Peynir çeşitleri, zeytin, bal, kaymak, reçel, sahanda yumurta, sınırsız çay", "en": "Cheeses, olives, honey, clotted cream, jam, fried eggs, unlimited tea", "ar": "أجبان، زيتون، عسل، قشطة، مربى، بيض مقلي، شاي بلا حدود"}, "price": 850, "tag": "popular"}, {"name": {"tr": "Kuymak", "en": "Kuymak (Black Sea cheese fondue)", "ar": "كويماك (جبنة ذائبة بالذرة)"}, "desc": {"tr": "Mısır unu, tereyağı ve Trabzon peyniri", "en": "Cornmeal, butter and Trabzon cheese", "ar": "دقيق الذرة والزبدة وجبنة طرابزون"}, "price": 280, "tag": "local"}, {"name": {"tr": "Menemen", "en": "Menemen", "ar": "منمن"}, "desc": {"tr": "Domates, biber, yumurta", "en": "Tomatoes, peppers, eggs", "ar": "طماطم، فلفل، بيض"}, "price": 190}, {"name": {"tr": "Kaşarlı Tost", "en": "Cheese Toastie", "ar": "توست بالجبنة"}, "desc": {"tr": "", "en": "", "ar": ""}, "price": 140}]}, {"name": {"tr": "Yöresel", "en": "Local Dishes", "ar": "أطباق محلية"}, "items": [{"name": {"tr": "Akçaabat Köfte", "en": "Akçaabat Meatballs", "ar": "كفتة أكتشا آباد"}, "desc": {"tr": "Közlenmiş biber ve piyaz ile", "en": "With grilled peppers and bean salad", "ar": "مع فلفل مشوي وسلطة فاصوليا"}, "price": 360, "tag": "local"}, {"name": {"tr": "Kaygana", "en": "Kaygana (herb omelette)", "ar": "كايغانا (عجة بالأعشاب)"}, "desc": {"tr": "", "en": "", "ar": ""}, "price": 220}, {"name": {"tr": "Laz Böreği", "en": "Laz Pastry (custard filo)", "ar": "بوريك لاز (فطيرة بالمهلبية)"}, "desc": {"tr": "Muhallebili, şerbetli", "en": "Custard-filled, in syrup", "ar": "محشوة بالمهلبية مع الشراب"}, "price": 180, "tag": "local"}]}, {"name": {"tr": "Sıcak İçecekler", "en": "Hot Drinks", "ar": "مشروبات ساخنة"}, "items": [{"name": {"tr": "Çay", "en": "Turkish Tea", "ar": "شاي تركي"}, "desc": {"tr": "Rize çayı", "en": "Rize black tea", "ar": "شاي ريزه"}, "price": 30}, {"name": {"tr": "Türk Kahvesi", "en": "Turkish Coffee", "ar": "قهوة تركية"}, "desc": {"tr": "Lokum ile", "en": "Served with Turkish delight", "ar": "مع راحة الحلقوم"}, "price": 100, "tag": "popular"}, {"name": {"tr": "Latte", "en": "Latte", "ar": "لاتيه"}, "desc": {"tr": "", "en": "", "ar": ""}, "price": 140}, {"name": {"tr": "Sahlep", "en": "Salep", "ar": "سحلب"}, "desc": {"tr": "Tarçınlı", "en": "With cinnamon", "ar": "بالقرفة"}, "price": 130}]}, {"name": {"tr": "Soğuk İçecekler", "en": "Cold Drinks", "ar": "مشروبات باردة"}, "items": [{"name": {"tr": "Ev Yapımı Limonata", "en": "Homemade Lemonade", "ar": "ليموناضة منزلية"}, "desc": {"tr": "", "en": "", "ar": ""}, "price": 120}, {"name": {"tr": "Ayran", "en": "Ayran (yogurt drink)", "ar": "عيران"}, "desc": {"tr": "", "en": "", "ar": ""}, "price": 50}, {"name": {"tr": "Iced Latte", "en": "Iced Latte", "ar": "آيس لاتيه"}, "desc": {"tr": "", "en": "", "ar": ""}, "price": 150}]}, {"name": {"tr": "Tatlılar", "en": "Desserts", "ar": "حلويات"}, "items": [{"name": {"tr": "Hamsiköy Sütlacı", "en": "Hamsiköy Rice Pudding", "ar": "رز بالحليب على طريقة حمسي كوي"}, "desc": {"tr": "Fındıklı, fırınsız", "en": "Topped with hazelnuts", "ar": "مع البندق"}, "price": 170, "tag": "local"}, {"name": {"tr": "Fındıklı Baklava (4 dilim)", "en": "Hazelnut Baklava (4 pcs)", "ar": "بقلاوة بالبندق (4 قطع)"}, "desc": {"tr": "", "en": "", "ar": ""}, "price": 260}, {"name": {"tr": "San Sebastian", "en": "San Sebastian Cheesecake", "ar": "تشيز كيك سان سيباستيان"}, "desc": {"tr": "", "en": "", "ar": ""}, "price": 210}]}]}, UI = {"tr": {"search": "Menüde ara…", "vat": "Fiyatlara KDV dahildir.", "popular": "Çok satan", "local": "Yöresel", "none": "Sonuç yok", "call": "Ara", "demo": "Tasarım önerisidir — örnek bir menüdür, ürün ve fiyatlar temsilidir."}, "en": {"search": "Search the menu…", "vat": "Prices include VAT.", "popular": "Bestseller", "local": "Local", "none": "No results", "call": "Call", "demo": "Design proposal — sample menu, items and prices are illustrative."}, "ar": {"search": "ابحث في القائمة…", "vat": "الأسعار شاملة الضريبة.", "popular": "الأكثر طلباً", "local": "محلي", "none": "لا توجد نتائج", "call": "اتصال", "demo": "نموذج تصميم — قائمة تجريبية، الأصناف والأسعار للتوضيح فقط."}}, LL = {"tr": "TR", "en": "EN", "ar": "عربي"};
+let lang = M.langs[0];
+try { const s = localStorage.getItem("menu-lang"); if (M.langs.includes(s)) lang = s; else {
+  const n = (navigator.language || "").slice(0, 2); if (M.langs.includes(n)) lang = n; } } catch (e) {}
+const t = o => (o && (o[lang] || o[M.langs[0]])) || "";
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money = p => p.toLocaleString("tr-TR") + " " + M.currency;
+function render() {
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  const u = UI[lang];
+  document.getElementById("tagline").textContent = [t(M.tagline), t(M.hours)].filter(Boolean).join(" · ");
+  document.getElementById("langs").innerHTML = M.langs.length < 2 ? "" : M.langs.map(l =>
+    `<button class="${l === lang ? "on" : ""}" data-l="${l}">${LL[l]}</button>`).join("");
+  document.getElementById("q").placeholder = u.search;
+  document.getElementById("none").textContent = u.none;
+  const demo = document.querySelector(".demo"); if (demo) demo.textContent = u.demo;
+  document.getElementById("chips").innerHTML = M.categories.map((c, i) => `<a href="#c${i}">${esc(t(c.name))}</a>`).join("");
+  document.getElementById("menu").innerHTML = M.categories.map((c, i) => `<section id="c${i}"><h2>${esc(t(c.name))}</h2>` +
+    c.items.map(it => `<div class="item"><div><h3>${esc(t(it.name))}${it.tag ? `<span class="tag ${it.tag}">${u[it.tag]}</span>` : ""}</h3>` +
+      (t(it.desc) ? `<p>${esc(t(it.desc))}</p>` : "") + `</div><div class="price">${money(it.price)}</div></div>`).join("") + `</section>`).join("");
+  const bits = [u.vat];
+  if (M.phone) bits.push(`<a href="tel:${M.phone.replace(/\s/g, "")}">${u.call}: ${esc(M.phone)}</a>`);
+  if (M.instagram) bits.push(`<a href="https://www.instagram.com/${esc(M.instagram)}/">@${esc(M.instagram)}</a>`);
+  document.getElementById("foot").innerHTML = bits.join("<br>");
+  filter();
+}
+function filter() {
+  const q = document.getElementById("q").value.trim().toLocaleLowerCase(lang);
+  let any = false;
+  document.querySelectorAll("section").forEach(s => {
+    let shown = 0;
+    s.querySelectorAll(".item").forEach(el => { const ok = !q || el.textContent.toLocaleLowerCase(lang).includes(q); el.style.display = ok ? "" : "none"; shown += ok; });
+    s.style.display = shown ? "" : "none"; any = any || shown > 0;
+  });
+  document.getElementById("none").style.display = any ? "none" : "block";
+}
+document.getElementById("langs").addEventListener("click", e => {
+  const l = e.target.dataset.l; if (!l) return; lang = l;
+  try { localStorage.setItem("menu-lang", l); } catch (err) {}
+  render();
+});
+document.getElementById("q").addEventListener("input", filter);
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) {
+  document.querySelectorAll(".chips a").forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
+  const on = document.querySelector(".chips a.on"); if (on) on.scrollIntoView({inline: "center", block: "nearest"}); } }),
+  {rootMargin: "-120px 0px -70% 0px"});
+render();
+document.querySelectorAll("section").forEach(s => io.observe(s));
+</script>
+</body>
+</html>
